@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const API_URL = "https://api.hackthenorth.com/v3/graphql";
+const API_URL = "https://api.hackthenorth.com/v3/events";
 
 class EventService {
-  getUsers() {
+  getEvents() {
     return axios.get(API_URL);
   }
 
-  getEventId(eventId) {
+  getEventId(eventId: number) {
     return axios.get(API_URL + "/" + eventId);
   }
 }
