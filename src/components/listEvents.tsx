@@ -57,32 +57,7 @@ import axios from "axios";
 
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<any[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  //login function
-  const handleLogin = () => {
-    console.log("login button clicked");
-    // hard coding the user and pass
-    if (username === "hacker" && password === "hacker123!") {
-      // Redirect to the admin page
-      //router.push('/admin');
-      console.log("logged in");
-      //change the bool to true to access the admin page
-      setIsLoggedIn(true);
-    } else {
-      alert("Invalid username or password");
-    }
-  };
-
-  //logout function
-  const handleLogout = () => {
-    // Reset the login state and redirect to login page
-    setIsLoggedIn(false);
-    setUsername("");
-    setPassword("");
-  };
+  const [publicEvents, setPublicEvents] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -104,6 +79,12 @@ const EventList: React.FC = () => {
 
         // Store events in state
         setEvents(detailedEvents);
+
+        // Filter events to get public events
+        const publicEvents = detailedEvents.filter(
+          (event: any) => event.permission === "public"
+        );
+        setPublicEvents(publicEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -114,7 +95,7 @@ const EventList: React.FC = () => {
 
   return (
     <div>
-      <h1>Events</h1>
+      <h1>Private Events</h1>
       <ul>
         {events.map((event: any) => (
           <li key={event.id}>
