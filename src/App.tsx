@@ -4,6 +4,7 @@ import "./App.css";
 import ListEvents from "./components/listEvents";
 import HackerEvents from "./components/hackerEvents";
 import Home from "./components/home";
+import ViewEvent from "./components/viewEvent";
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hackerevents" element={<HackerEvents />} />
+        <Route path="/:id" element={<ViewEvent />} />
         {/* <Route 
             path="/events" 
             element={
