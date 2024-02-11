@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
-import Login from "./login";
+import { TEvent } from "src/types/types";
+import Login from "./hackerEvents";
+import EventsList from "./eventsList";
 import EventService from "../services/eventService";
 import {
   Bars3Icon,
@@ -29,7 +31,8 @@ export default function Home() {
           EventService.getEventId(id)
         );
         const eventDetailsResponses = await Promise.all(eventDetailsPromises);
-        const detailedEvents = eventDetailsResponses.map(
+        //define as an array of Tevent objects
+        const detailedEvents: TEvent[] = eventDetailsResponses.map(
           (response: any) => response.data
         );
 
@@ -88,7 +91,7 @@ export default function Home() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <NavLink
-              to="/login"
+              to="/hackerevents"
               className="flex items-center gap-2 text-sm font-semibold leading-6 text-white"
             >
               Login
@@ -135,7 +138,7 @@ export default function Home() {
                 </div>
                 <div className="py-6">
                   <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">
-                    <NavLink to="/login">Log in</NavLink>
+                    <NavLink to="/hackerevents">Log in</NavLink>
                   </div>
                 </div>
               </div>
@@ -169,7 +172,7 @@ export default function Home() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <NavLink
-                  to="/login"
+                  to="/hackerevents"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
                   Log in
@@ -212,12 +215,7 @@ export default function Home() {
         <h1 className="mt-32">Public Events</h1>
         <ul>
           {publicEvents.map((event: any) => (
-            <li key={event.id}>
-              <h2>{event.name}</h2>
-              <p>Event Type: {event.event_type}</p>
-              <p>Start Time: {new Date(event.start_time).toLocaleString()}</p>
-              <p>permission: {event.permission}</p>
-            </li>
+            <EventsList key={event.id} event={event} />
           ))}
         </ul>
       </div>

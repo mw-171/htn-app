@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ListEvents from "./components/listEvents";
-import Login from "./components/login";
+import HackerEvents from "./components/hackerEvents";
 import Home from "./components/home";
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -30,7 +30,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/hackerevents" element={<HackerEvents />} />
         {/* <Route 
             path="/events" 
             element={
