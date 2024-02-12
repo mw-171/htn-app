@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import ListEvents from "./components/listEvents";
 import HackerEvents from "./components/hackerEvents";
+import Login from "./components/login";
 import Home from "./components/home";
 import ViewEvent from "./components/viewEvent";
 import { AuthProvider } from "./contexts/authContext";
@@ -27,13 +28,15 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    // <AuthProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hackerevents" element={<HackerEvents />} />
-        <Route path="/:id" element={<ViewEvent />} />
-        {/* <Route 
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/hackerevents" element={<HackerEvents />} />
+          <Route path="/hackerevents/:id" element={<ViewEvent />} />
+          <Route path="/:id" element={<ViewEvent />} />
+          {/* <Route 
             path="/events" 
             element={
               ({ isAuthenticated }: { isAuthenticated: boolean }) => {
@@ -41,9 +44,9 @@ function App() {
               }} 
               }
           /> */}
-      </Routes>
-    </Router>
-    // </AuthProvider>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
