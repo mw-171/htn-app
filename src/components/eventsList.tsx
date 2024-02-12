@@ -32,26 +32,42 @@ const EventsList: React.FC<Props> = ({ event }) => {
             <li key={index}>{speaker.name}</li>
           ))}
         </ul>
-        {isAuthenticated ? (
-          <a href={event.private_url}>url</a>
-        ) : (
-          <a href={event.public_url}>url</a>
-        )}
 
-        <button onClick={() => viewEvent(event.id)}>expand</button>
         <p>Related Events: </p>
         <div className="flex items-center space-x-4">
           {event.related_events.map((related, index) => (
             <li key={index}>
               <button
                 onClick={() => viewEvent(related)}
-                className="text-sm font-semibold text-white"
+                className="text-sm font-semibold text-white hover:text-indigo-300"
               >
                 {related}
               </button>
             </li>
           ))}
         </div>
+        {isAuthenticated ? (
+          <a
+            className="text-sm font-semibold text-white hover:text-indigo-300"
+            href={event.private_url}
+          >
+            url
+          </a>
+        ) : (
+          <a
+            className="text-sm font-semibold text-white hover:text-indigo-300"
+            href={event.public_url}
+          >
+            url
+          </a>
+        )}
+
+        <button
+          className="text-sm font-semibold text-white hover:text-indigo-300"
+          onClick={() => viewEvent(event.id)}
+        >
+          expand
+        </button>
       </li>
     </div>
   );

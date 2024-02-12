@@ -211,7 +211,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="text-white mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-16">
         <div className="relative py-4 z-20">
           <div
             className="absolute inset-0 flex items-center"
@@ -226,7 +226,7 @@ export default function Home() {
           </div>
         </div>
 
-        <ul role="list" className="space-y-3">
+        <ul role="list" className="space-y-4">
           {publicEvents.map((event: any) => (
             <EventsList key={event.id} event={event} />
           ))}
