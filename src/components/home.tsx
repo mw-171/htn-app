@@ -64,8 +64,8 @@ export default function Home() {
         >
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img className="h-8 w-auto" src="/htnlogo.png" alt="" />
+              <span className="sr-only">Hack the north</span>
+              <img className="h-8 w-auto" src="/htnlogo.png" alt="logo" />
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -111,7 +111,7 @@ export default function Home() {
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only">Hack the north</span>
                 <img className="h-8 w-auto" src="/htnlogo.png" alt="" />
               </a>
               <button
@@ -188,14 +188,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
-            {/* <img
-              src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-              alt="App screenshot"
-              width={2432}
-              height={1442}
-              className="mt-16 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-24"
-            /> */}
           </div>
         </div>
         <div
@@ -211,7 +203,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-16">
+      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-24">
         <div className="relative py-4 z-20">
           <div
             className="absolute inset-0 flex items-center"
@@ -226,7 +218,7 @@ export default function Home() {
           </div>
         </div>
 
-        <ul role="list" className="space-y-4">
+        <ul role="list" className="space-y-6 py-4">
           {publicEvents.map((event: any) => (
             <EventsList key={event.id} event={event} />
           ))}
