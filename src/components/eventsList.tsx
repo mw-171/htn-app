@@ -51,7 +51,7 @@ const EventsList: React.FC<Props> = ({ event }) => {
                   >
                     <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                   </svg>
-                  <div className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 flex flex-col sm:flex-row items-start">
+                  <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
                     <CalendarIcon
                       className="h-5 w-5 flex-shrink-0"
                       aria-hidden="true"
@@ -72,7 +72,7 @@ const EventsList: React.FC<Props> = ({ event }) => {
                   >
                     <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                   </svg>
-                  <div className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 flex flex-col sm:flex-row items-start">
+                  <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
                     <ClockIcon
                       className="h-5 w-5 flex-shrink-0"
                       aria-hidden="true"
@@ -89,9 +89,9 @@ const EventsList: React.FC<Props> = ({ event }) => {
             <p>{event.description}</p>
           </div>
           <div className="">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="relative">
-                <div className="absolute">
+            <div className="flex flex-col justify-center space-y-5">
+              <div className="flex items-center md:justify-end space-x-4">
+                <div className="relative">
                   <div className=" font-bold text-6xl bg-gradient-to-r from-purple-500 to-blue-600 text-transparent bg-clip-text flex inline-block">
                     {event.id}
                   </div>
