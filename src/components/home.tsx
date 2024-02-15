@@ -220,7 +220,7 @@ export default function Home() {
 
         <ul role="list" className="space-y-6 py-4">
           {publicEvents.map((event: any) => (
-            <EventsList key={event.id} event={event} />
+            <EventsList key={event.id} event={event} allEvents={publicEvents} />
           ))}
         </ul>
       </div>

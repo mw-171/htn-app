@@ -5,7 +5,7 @@ type TEventType = "workshop" | "activity" | "tech_talk";
 type TPermission = "public" | "private";
 
 // Define TSpeaker type if not already defined
-type TSpeaker = {
+export type TSpeaker = {
   name: string;
 };
 

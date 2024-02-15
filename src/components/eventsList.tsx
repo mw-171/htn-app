@@ -7,9 +7,10 @@ import "../App.css";
 
 interface Props {
   event: TEvent;
+  allEvents: TEvent[];
 }
 
-const EventsList: React.FC<Props> = ({ event }) => {
+const EventsList: React.FC<Props> = ({ event, allEvents }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
@@ -97,27 +98,34 @@ const EventsList: React.FC<Props> = ({ event }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center md:justify-end space-x-4">
+              <div className="flex items-center md:justify-end space-x-4 text-lg">
                 <p>Speakers:</p>
                 <ul>
                   {event.speakers.map((speaker, index) => (
-                    <li key={index}>{speaker.name}</li>
+                    <li key={index} className="font-bold">
+                      {speaker.name}
+                    </li>
                   ))}
                 </ul>
               </div>
 
               <div className="flex items-center md:justify-end space-x-4">
                 <p className="font-semibold">Related Events: </p>
-                {event.related_events.map((related, index) => (
-                  <li key={index}>
-                    <button
-                      onClick={() => viewEvent(related)}
-                      className="h-8 w-8 rounded-full bg-gray-700 p-1 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-sm font-semibold text-white "
-                    >
-                      {related}
-                    </button>
-                  </li>
-                ))}
+                {event.related_events.map((related, index) => {
+                  // Find the related event object from allEvents array
+                  const relatedEvent = allEvents.find((e) => e.id === related);
+                  // If the related event exists, render its name along with the button
+                  return relatedEvent ? (
+                    <div key={index} className="flex items-center">
+                      <button
+                        onClick={() => viewEvent(related)}
+                        className="ml-2"
+                      >
+                        {relatedEvent.name}
+                      </button>
+                    </div>
+                  ) : null;
+                })}
               </div>
 
               <div className="flex items-center md:justify-end  space-x-4">
@@ -130,7 +138,7 @@ const EventsList: React.FC<Props> = ({ event }) => {
                   </a>
                 ) : (
                   <a
-                    className="rounded-full bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
+                    className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     href={event.public_url}
                   >
                     See More
@@ -138,7 +146,7 @@ const EventsList: React.FC<Props> = ({ event }) => {
                 )}
 
                 <button
-                  className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200"
+                  className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   onClick={() => viewEvent(event.id)}
                 >
                   Expand

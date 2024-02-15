@@ -65,7 +65,7 @@ export default function HackerEvents() {
           </button>
           <ul className="space-y-3">
             {events.map((event: any) => (
-              <EventsList key={event.id} event={event} />
+              <EventsList key={event.id} event={event} allEvents={events} />
             ))}
           </ul>
         </div>
