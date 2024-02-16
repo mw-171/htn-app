@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { TEvent, TSpeaker } from "src/types/types";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/contexts/authContext";
+import { format } from "date-fns";
 import {
   ClockIcon,
   CalendarIcon,
@@ -21,6 +22,8 @@ const ViewEvent = () => {
   const navigate = useNavigate();
   const [relatedEvents, setRelatedEvents] = useState<TEvent[]>([]);
   const { isAuthenticated } = useAuth();
+  const startDate = new Date(event.start_time);
+  const formattedDate = format(startDate, "EEE, MMM dd, yyyy");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -64,20 +67,33 @@ const ViewEvent = () => {
     return `${hours}:${minutes}:${seconds}`;
   }
 
+  const eventTypeDisplay: { [key: string]: string } = {
+    workshop: "Workshop",
+    activity: "Activity",
+    tech_talk: "Tech Talk",
+  };
+  const eventType = eventTypeDisplay[event.event_type] || "Unknown";
+
+  const eventPermissionDisplay: { [key: string]: string } = {
+    public: "Public",
+    private: "Private",
+  };
+  const eventPermission = eventPermissionDisplay[event.permission] || "Unknown";
+
   return (
     <>
-      <div className="bg-black h-screen text-white">
-        <div className="overflow-hidden  px-48 py-48 shadow">
-          <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
+        <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="">
-              <h2 className="font-bold text-5xl bg-gradient-to-r from-purple-500 to-blue-600 text-transparent bg-clip-text flex inline-block">
+              <h2 className="font-bold text-5xl  flex inline-block">
                 {event.name}
               </h2>
-              <ol role="list" className="flex items-center space-x-4 py-4">
+              <ol role="list" className="flex items-center sm:space-x-4 py-4">
                 <li>
                   <div>
                     <div className="text-gray-400 hover:text-gray-500">
-                      {event.permission} {event.event_type}
+                      {eventPermission} {eventType}
                       <span className="sr-only">event type</span>
                     </div>
                   </div>
@@ -92,13 +108,13 @@ const ViewEvent = () => {
                     >
                       <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                     </svg>
-                    <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                    <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
                       <CalendarIcon
                         className="h-5 w-5 flex-shrink-0"
                         aria-hidden="true"
                       />
                       <span className="mt-1 sm:mt-0 sm:ml-2">
-                        {new Date(event.start_time).toLocaleDateString()}
+                        {formattedDate}
                       </span>
                     </div>
                   </div>
@@ -113,7 +129,7 @@ const ViewEvent = () => {
                     >
                       <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                     </svg>
-                    <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                    <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
                       <ClockIcon
                         className="h-5 w-5 flex-shrink-0"
                         aria-hidden="true"
@@ -130,12 +146,11 @@ const ViewEvent = () => {
               <p>{event.description}</p>
             </div>
             <div className="">
-              <div className="flex flex-col justify-center space-y-5">
+              <div className="flex flex-col justify-center pt-8 md:pt-0">
                 <div className="flex items-center md:justify-end space-x-4">
                   <h3>Speakers:</h3>
                 </div>
-
-                <div className="flex items-center md:justify-end space-x-4">
+                <div className="pt-1 flex items-center md:justify-end space-x-4">
                   {event.event_type === "tech_talk" ||
                   event.event_type === "workshop" ? (
                     <div>
@@ -146,8 +161,8 @@ const ViewEvent = () => {
                               key={index}
                               className="flex items-center space-x-2"
                             >
-                              <UserCircleIcon className="w-10 h-10 rounded-full" />
-                              <span className="text-xl font-bold text-white hover:text-indigo-300">
+                              <UserCircleIcon className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-600" />
+                              <span className="text-2xl font-bold text-white hover:text-indigo-300">
                                 {speaker.name}
                               </span>
                             </li>
@@ -158,7 +173,7 @@ const ViewEvent = () => {
                   ) : null}
                 </div>
 
-                <div className="flex items-center md:justify-end  space-x-4">
+                <div className="pt-8 flex items-center md:justify-end  space-x-4">
                   {isAuthenticated ? (
                     <a
                       className="text-sm font-semibold text-white hover:text-indigo-300"
@@ -175,11 +190,11 @@ const ViewEvent = () => {
                     </a>
                   )}
                 </div>
-                <div className="flex items-center md:justify-end ">
+                <div className="pt-8 flex items-center md:justify-end ">
                   <div className="font-bold">Related Events:</div>
                 </div>
                 {relatedEvents.map((relatedEvent: TEvent) => (
-                  <div className="flex items-center md:justify-end ">
+                  <div className="pt-2 flex items-center md:justify-end ">
                     <button
                       onClick={() => viewEvent(relatedEvent.id)}
                       key={relatedEvent.id}
