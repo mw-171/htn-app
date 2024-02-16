@@ -240,45 +240,279 @@ const ViewEvent = () => {
         </div>
       )} */}
 
-      <div className="container mt-5">
+      <div>
         {isAuthenticated ? (
           <div>
-            <h1>{event.name} logged in</h1>
-            <div className="pt-8 flex items-center md:justify-end ">
-              <div className="font-bold ">Related Events:</div>
-            </div>
-            {relatedEvents.map((relatedEvent: TEvent) => (
-              <div className="pt-2 flex items-center md:justify-end ">
-                <button
-                  onClick={() => viewEvent(relatedEvent.id)}
-                  key={relatedEvent.id}
-                  className="border-b-2 border-indigo-500 hover:text-indigo-300"
-                >
-                  {relatedEvent.name}
-                </button>
+            <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
+              <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="">
+                    <h2 className="font-bold text-5xl  flex inline-block">
+                      {event.name}
+                    </h2>
+                    <ol
+                      role="list"
+                      className="flex items-center sm:space-x-4 py-4"
+                    >
+                      <li>
+                        <div>
+                          <div className="text-gray-400 hover:text-gray-500">
+                            {eventPermission} {eventType}
+                            <span className="sr-only">event type</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="flex items-center">
+                          <svg
+                            className="h-5 w-5 flex-shrink-0 text-gray-300"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
+                          >
+                            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                          </svg>
+                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                            <CalendarIcon
+                              className="h-5 w-5 flex-shrink-0"
+                              aria-hidden="true"
+                            />
+                            <span className="mt-1 sm:mt-0 sm:ml-2">
+                              {formatDate(event.start_time)}
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="flex items-center">
+                          <svg
+                            className="h-5 w-5 flex-shrink-0 text-gray-300"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
+                          >
+                            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                          </svg>
+                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                            <ClockIcon
+                              className="h-5 w-5 flex-shrink-0"
+                              aria-hidden="true"
+                            />
+                            <span className="mt-1 sm:mt-0 sm:ml-2">
+                              {formatTime(event.start_time)} -{" "}
+                              {formatTime(event.end_time)}
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                    </ol>
+                    <p>{event.description}</p>
+                  </div>
+                  <div className="">
+                    <div className="flex flex-col justify-center pt-8 md:pt-0">
+                      <div className="flex items-center md:justify-end space-x-4 opacity-90">
+                        <h3>Speakers:</h3>
+                      </div>
+                      <div className="pt-1 flex items-center md:justify-end space-x-4">
+                        {event.event_type === "tech_talk" ||
+                        event.event_type === "workshop" ? (
+                          <div>
+                            <ul>
+                              {event.speakers.map(
+                                (speaker: TSpeaker, index: number) => (
+                                  <li
+                                    key={index}
+                                    className="flex items-center space-x-2"
+                                  >
+                                    <UserCircleIcon className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-600" />
+                                    <span className="text-2xl font-bold text-white hover:text-indigo-300">
+                                      {speaker.name}
+                                    </span>
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <div className="pt-8 flex items-center md:justify-end  space-x-4">
+                        {isAuthenticated ? (
+                          <a
+                            className="text-sm font-semibold text-white hover:text-indigo-300"
+                            href={event.private_url}
+                          >
+                            View More
+                          </a>
+                        ) : (
+                          <a
+                            className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            href={event.public_url}
+                          >
+                            See More
+                          </a>
+                        )}
+                      </div>
+                      <div className="pt-8 flex items-center md:justify-end ">
+                        <div className="font-bold ">Related Events:</div>
+                      </div>
+                      {relatedEvents.map((relatedEvent: TEvent) => (
+                        <div className="pt-2 flex items-center md:justify-end ">
+                          <button
+                            onClick={() => viewEvent(relatedEvent.id)}
+                            key={relatedEvent.id}
+                            className="border-b-2 border-indigo-500 hover:text-indigo-300"
+                          >
+                            {relatedEvent.name}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         ) : (
           <div>
             {isPrivateEventType ? (
-              <h2 className="font-bold text-black">Please log in to view.</h2>
+              <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
+                <h2 className="font-bold text-white flex justify-center items-center">
+                  Please log in to view.
+                </h2>
+              </div>
             ) : (
               <div>
-                <div className="pt-8 flex items-center md:justify-end ">
-                  <div className="font-bold ">Related Events:</div>
-                </div>
-                {relatedEvents.map((relatedEvent: TEvent) => (
-                  <div className="pt-2 flex items-center md:justify-end ">
-                    <button
-                      onClick={() => viewEvent(relatedEvent.id)}
-                      key={relatedEvent.id}
-                      className="border-b-2 border-indigo-500 hover:text-indigo-300"
-                    >
-                      {relatedEvent.name}
-                    </button>
+                <div className="font-bold">public</div>
+                <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
+                  <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
+                    <div className="grid grid-cols-1 md:grid-cols-2">
+                      <div className="">
+                        <h2 className="font-bold text-5xl  flex inline-block">
+                          {event.name}
+                        </h2>
+                        <ol
+                          role="list"
+                          className="flex items-center sm:space-x-4 py-4"
+                        >
+                          <li>
+                            <div>
+                              <div className="text-gray-400 hover:text-gray-500">
+                                {eventPermission} {eventType}
+                                <span className="sr-only">event type</span>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="flex items-center">
+                              <svg
+                                className="h-5 w-5 flex-shrink-0 text-gray-300"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                              </svg>
+                              <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                                <CalendarIcon
+                                  className="h-5 w-5 flex-shrink-0"
+                                  aria-hidden="true"
+                                />
+                                <span className="mt-1 sm:mt-0 sm:ml-2">
+                                  {formatDate(event.start_time)}
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="flex items-center">
+                              <svg
+                                className="h-5 w-5 flex-shrink-0 text-gray-300"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                              </svg>
+                              <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                                <ClockIcon
+                                  className="h-5 w-5 flex-shrink-0"
+                                  aria-hidden="true"
+                                />
+                                <span className="mt-1 sm:mt-0 sm:ml-2">
+                                  {formatTime(event.start_time)} -{" "}
+                                  {formatTime(event.end_time)}
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ol>
+                        <p>{event.description}</p>
+                      </div>
+                      <div className="">
+                        <div className="flex flex-col justify-center pt-8 md:pt-0">
+                          <div className="flex items-center md:justify-end space-x-4 opacity-90">
+                            <h3>Speakers:</h3>
+                          </div>
+                          <div className="pt-1 flex items-center md:justify-end space-x-4">
+                            {event.event_type === "tech_talk" ||
+                            event.event_type === "workshop" ? (
+                              <div>
+                                <ul>
+                                  {event.speakers.map(
+                                    (speaker: TSpeaker, index: number) => (
+                                      <li
+                                        key={index}
+                                        className="flex items-center space-x-2"
+                                      >
+                                        <UserCircleIcon className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-600" />
+                                        <span className="text-2xl font-bold text-white hover:text-indigo-300">
+                                          {speaker.name}
+                                        </span>
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pt-8 flex items-center md:justify-end  space-x-4">
+                            {isAuthenticated ? (
+                              <a
+                                className="text-sm font-semibold text-white hover:text-indigo-300"
+                                href={event.private_url}
+                              >
+                                View More
+                              </a>
+                            ) : (
+                              <a
+                                className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                href={event.public_url}
+                              >
+                                See More
+                              </a>
+                            )}
+                          </div>
+                          <div className="pt-8 flex items-center md:justify-end ">
+                            <div className="font-bold ">Related Events:</div>
+                          </div>
+                          {relatedEvents.map((relatedEvent: TEvent) => (
+                            <div className="pt-2 flex items-center md:justify-end ">
+                              <button
+                                onClick={() => viewEvent(relatedEvent.id)}
+                                key={relatedEvent.id}
+                                className="border-b-2 border-indigo-500 hover:text-indigo-300"
+                              >
+                                {relatedEvent.name}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                ))}
+                </div>
               </div>
             )}
           </div>

@@ -55,15 +55,16 @@ export default function HackerEvents() {
     <>
       {isAuthenticated ? (
         <div className="bg-gray-900">
-          <h1 className="text-white">you are logged in</h1>
-          <button
-            type="button"
-            className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-          <ul className="space-y-3">
+          <div className="px-4 pt-4 flex justify-end">
+            <button
+              type="button"
+              className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+          <ul className="space-y-6 pb-16 pt-8 px-16">
             {events.map((event: any) => (
               <EventsList key={event.id} event={event} allEvents={events} />
             ))}
