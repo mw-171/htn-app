@@ -24,8 +24,10 @@ const ViewEvent = () => {
   const { isAuthenticated } = useAuth();
   const isPrivateAndNotAuthenticated =
     event.permission === "private" && !isAuthenticated;
-  const isPrivateEventType = event.event_type === "private";
+  const isPrivateEventType = event.permission === "private";
+  const [loading, setLoading] = useState(true); // Initialize loading state
 
+  console.log(isPrivateEventType);
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -34,7 +36,7 @@ const ViewEvent = () => {
           const response = await EventService.getEventId(eventId);
           setEvent(response.data);
           console.log("event call", response.data);
-
+          setLoading(false);
           const relatedDetailsPromises = response.data.related_events.map(
             (relatedId: number) => EventService.getEventId(relatedId)
           );
@@ -94,9 +96,21 @@ const ViewEvent = () => {
   };
   const eventPermission = eventPermissionDisplay[event.permission] || "Unknown";
 
+  if (loading) {
+    return (
+      <div className="bg-black h-screen flex justify-center items-center text-white">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <>
-      {isAuthenticated ? (
+      {/* {isPrivateAndNotAuthenticated ? (
+        <div>
+          <h1>This event is private. Please log in to view.</h1>
+        </div>
+      ) : (
         <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
           <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
             <div className="grid grid-cols-1 md:grid-cols-2">
@@ -158,8 +172,8 @@ const ViewEvent = () => {
                   </li>
                 </ol>
                 {/* <div className="grid grid-cols-1 sm:grid-cols-2"> */}
-                <p>{event.description}</p>
-              </div>
+      {/* <p>{event.description}</p> */}
+      {/* </div>
               <div className="">
                 <div className="flex flex-col justify-center pt-8 md:pt-0">
                   <div className="flex items-center md:justify-end space-x-4 opacity-90">
@@ -222,14 +236,54 @@ const ViewEvent = () => {
                 </div>
               </div>
             </div>
-            {/* </div> */}
           </div>
         </div>
-      ) : (
-        <div>
-          <h1>This event is private. Please log in to view.</h1>
-        </div>
-      )}
+      )} */}
+
+      <div className="container mt-5">
+        {isAuthenticated ? (
+          <div>
+            <h1>{event.name} logged in</h1>
+            <div className="pt-8 flex items-center md:justify-end ">
+              <div className="font-bold ">Related Events:</div>
+            </div>
+            {relatedEvents.map((relatedEvent: TEvent) => (
+              <div className="pt-2 flex items-center md:justify-end ">
+                <button
+                  onClick={() => viewEvent(relatedEvent.id)}
+                  key={relatedEvent.id}
+                  className="border-b-2 border-indigo-500 hover:text-indigo-300"
+                >
+                  {relatedEvent.name}
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>
+            {isPrivateEventType ? (
+              <h2 className="font-bold text-black">Please log in to view.</h2>
+            ) : (
+              <div>
+                <div className="pt-8 flex items-center md:justify-end ">
+                  <div className="font-bold ">Related Events:</div>
+                </div>
+                {relatedEvents.map((relatedEvent: TEvent) => (
+                  <div className="pt-2 flex items-center md:justify-end ">
+                    <button
+                      onClick={() => viewEvent(relatedEvent.id)}
+                      key={relatedEvent.id}
+                      className="border-b-2 border-indigo-500 hover:text-indigo-300"
+                    >
+                      {relatedEvent.name}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
 };
