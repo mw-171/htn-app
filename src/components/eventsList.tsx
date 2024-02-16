@@ -3,6 +3,7 @@ import { TEvent } from "src/types/types";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/contexts/authContext";
 import { ClockIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import { format } from "date-fns";
 import "../App.css";
 
 interface Props {
@@ -13,6 +14,9 @@ interface Props {
 const EventsList: React.FC<Props> = ({ event, allEvents }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+
+  const startDate = new Date(event.start_time);
+  const formattedDate = format(startDate, "EEE, MMM dd, yyyy");
 
   const viewEvent = (id: number) => {
     console.log("clicked event id: ", id);
@@ -27,105 +31,45 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
     return `${hours}:${minutes}:${seconds}`;
   }
 
+  const formatDate = (dateString: number) => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid date string");
+      }
+      return format(date, "EEE, MMM dd, yyyy");
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return "Invalid Date";
+    }
+  };
+
   return (
     <div className="text-white">
-      <li className="overflow-hidden rounded-lg bg-black px-12 py-12 shadow">
+      <li className="overflow-hidden rounded-lg bg-black bg-opacity-40 px-12 py-12 shadow">
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <div className="">
             <h2 className="text-3xl font-bold">{event.name}</h2>
-            <ol role="list" className="flex items-center space-x-4 py-4">
-              <li>
-                <div>
-                  <div className="text-gray-400 hover:text-gray-500">
-                    {event.permission} {event.event_type}
-                    <span className="sr-only">event type</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg
-                    className="h-5 w-5 flex-shrink-0 text-gray-300"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                  </svg>
-                  <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
-                    <CalendarIcon
-                      className="h-5 w-5 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="mt-1 sm:mt-0 sm:ml-2">
-                      {new Date(event.start_time).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg
-                    className="h-5 w-5 flex-shrink-0 text-gray-300"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                  </svg>
-                  <div className="ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
-                    <ClockIcon
-                      className="h-5 w-5 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="mt-1 sm:mt-0 sm:ml-2">
-                      {formatTime(event.start_time)} -{" "}
-                      {formatTime(event.end_time)}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ol>
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2"> */}
-            <p>{event.description}</p>
+            <div className="space-x-4">
+              {/* <CalendarIcon className="h-5 w-5" /> */}
+              <span className="">{formatDate(event.start_time)}</span>
+              {/* <ClockIcon className="h-5 w-5 flex-shrink-0" /> */}
+              <span className="">
+                {formatTime(event.start_time)} - {formatTime(event.end_time)}
+              </span>
+            </div>
           </div>
           <div className="">
             <div className="flex flex-col justify-center space-y-5">
-              <div className="flex items-center md:justify-end space-x-4">
-                <div className="relative">
-                  <div className=" font-bold text-6xl bg-gradient-to-r from-purple-500 to-blue-600 text-transparent bg-clip-text flex inline-block">
-                    {event.id}
-                  </div>
-                </div>
-              </div>
               <div className="flex items-center md:justify-end space-x-4 text-lg">
-                <p>Speakers:</p>
+                <p className="opacity-70">Speakers:</p>
                 <ul>
                   {event.speakers.map((speaker, index) => (
-                    <li key={index} className="font-bold">
+                    <li key={index} className="font-bold text-xl">
                       {speaker.name}
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              <div className="flex items-center md:justify-end space-x-4">
-                <p className="font-semibold">Related Events: </p>
-                {event.related_events.map((related, index) => {
-                  // Find the related event object from allEvents array
-                  const relatedEvent = allEvents.find((e) => e.id === related);
-                  // If the related event exists, render its name along with the button
-                  return relatedEvent ? (
-                    <div key={index} className="flex items-center">
-                      <button
-                        onClick={() => viewEvent(related)}
-                        className="ml-2"
-                      >
-                        {relatedEvent.name}
-                      </button>
-                    </div>
-                  ) : null;
-                })}
               </div>
 
               <div className="flex items-center md:justify-end  space-x-4">
