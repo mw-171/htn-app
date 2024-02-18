@@ -25,8 +25,6 @@ const ViewEvent = () => {
   const navigate = useNavigate();
   const [relatedEvents, setRelatedEvents] = useState<TEvent[]>([]);
   const { isAuthenticated } = useAuth();
-  const isPrivateAndNotAuthenticated =
-    event.permission === "private" && !isAuthenticated;
   const isPrivateEventType = event.permission === "private";
   const [loading, setLoading] = useState(true); // Initialize loading state
 
@@ -50,7 +48,6 @@ const ViewEvent = () => {
             (response: any) => response.data
           );
           setRelatedEvents(relatedEventsData);
-          // console.log("related eventss", relatedEvents);
         }
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -100,7 +97,7 @@ const ViewEvent = () => {
 
   if (loading) {
     return (
-      <div className="bg-black h-screen flex justify-center items-center text-white">
+      <div className="bg-black min-h-screen flex justify-center items-center font-bold text-white">
         Loading...
       </div>
     );
@@ -206,7 +203,7 @@ const ViewEvent = () => {
                         </div>
                       ) : null}
 
-                      <div className="pt-8 flex items-center md:justify-end  space-x-4">
+                      <div className="pt-8 flex items-center md:justify-end space-x-4">
                         {isAuthenticated ? (
                           <a
                             className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
