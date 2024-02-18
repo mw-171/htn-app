@@ -1,4 +1,7 @@
-# frontend dev app for htn events!
+# Frontend dev app for htn events!
+
+Features public and private events with data pulled from a backend api endpoint
+Used tailwind, typescript and react
 
 # Getting Started with Create React App
 
