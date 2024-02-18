@@ -1,8 +1,12 @@
 import React from "react";
-import { TEvent } from "src/types/types";
+import { TEvent, TSpeaker } from "src/types/types";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/contexts/authContext";
-import { ClockIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import {
+  ClockIcon,
+  CalendarIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import { format } from "date-fns";
 import "../App.css";
 
@@ -27,8 +31,7 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
     const date = new Date(timestamp);
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
-    const seconds = date.getSeconds().toString().padStart(2, "0");
-    return `${hours}:${minutes}:${seconds}`;
+    return `${hours}:${minutes}`;
   }
 
   const formatDate = (dateString: number) => {
@@ -48,49 +51,67 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
     <div className="text-white">
       <li className="overflow-hidden rounded-lg bg-black bg-opacity-40 px-12 py-12 shadow">
         <div className="grid grid-cols-1 sm:grid-cols-2">
-          <div className="">
+          <div>
             <h2 className="text-3xl font-bold">{event.name}</h2>
-            <div className="space-x-4">
-              {/* <CalendarIcon className="h-5 w-5" /> */}
-              <span className="">{formatDate(event.start_time)}</span>
-              {/* <ClockIcon className="h-5 w-5 flex-shrink-0" /> */}
-              <span className="">
-                {formatTime(event.start_time)} - {formatTime(event.end_time)}
-              </span>
+            <div className="pt-2 sm:pt-4 sm:w-2/3 flex items-center font-semibold text-lg grid grid-cols-1 sm:grid-cols-2">
+              <div className="flex items-center flex-inline">
+                <CalendarIcon className="h-5 w-5 text-gray-400" />
+                <span className="pl-2">{formatDate(event.start_time)}</span>
+              </div>
+              <div className="flex items-center">
+                <ClockIcon className="h-5 w-5 flex-shrink-0 text-gray-400" />
+                <span className="pl-2">
+                  {formatTime(event.start_time)} - {formatTime(event.end_time)}
+                </span>
+              </div>
             </div>
           </div>
-          <div className="">
+          <div className="pt-4 sm:pt-2">
             <div className="flex flex-col justify-center space-y-5">
-              <div className="flex items-center md:justify-end space-x-4 text-lg">
-                <p className="opacity-70">Speakers:</p>
-                <ul>
-                  {event.speakers.map((speaker, index) => (
-                    <li key={index} className="font-bold text-xl">
-                      {speaker.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {event.event_type === "tech_talk" ||
+              event.event_type === "workshop" ? (
+                <div>
+                  <div className="pt-1 flex items-center md:justify-end space-x-4">
+                    <div>
+                      <ul>
+                        {event.speakers.map(
+                          (speaker: TSpeaker, index: number) => (
+                            <li
+                              key={index}
+                              className="flex items-center space-x-2"
+                            >
+                              <UserCircleIcon className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-600" />
+                              <span className="text-2xl font-bold text-white hover:text-indigo-300">
+                                {speaker.name}
+                              </span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
 
               <div className="flex items-center md:justify-end  space-x-4">
                 {isAuthenticated ? (
                   <a
-                    className="text-sm font-semibold text-white hover:text-indigo-300"
+                    className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     href={event.private_url}
                   >
-                    View More
+                    Learn More
                   </a>
                 ) : (
                   <a
                     className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     href={event.public_url}
                   >
-                    See More
+                    See Recording
                   </a>
                 )}
 
                 <button
-                  className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-300"
                   onClick={() => viewEvent(event.id)}
                 >
                   Expand

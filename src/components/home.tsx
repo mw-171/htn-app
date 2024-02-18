@@ -92,7 +92,7 @@ export default function Home() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <NavLink
               to="/login"
-              className="flex items-center gap-2 text-sm font-semibold leading-6 text-white"
+              className="flex items-center gap-2 text-sm font-semibold leading-6 text-white hover:text-indigo-400"
             >
               Login
               <span aria-hidden="true">
@@ -179,7 +179,7 @@ export default function Home() {
                 </NavLink>
                 <a
                   href="#"
-                  className="flex items-center gap-2 text-sm font-semibold leading-6 text-white"
+                  className="flex items-center gap-2 text-sm font-semibold leading-6 text-white hover:text-indigo-400"
                 >
                   Learn more{" "}
                   <span aria-hidden="true">
@@ -203,7 +203,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-24">
+      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-16">
         <div className="relative py-4 z-20">
           <div
             className="absolute inset-0 flex items-center"

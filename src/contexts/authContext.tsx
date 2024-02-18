@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -22,8 +22,15 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    // Retrieve authentication state from localStorage if available for auth persist
+    const storedAuth = localStorage.getItem("isAuthenticated");
+    return storedAuth ? JSON.parse(storedAuth) : false;
+  });
+
+  //login and logout control functions
   const login = () => {
     setIsAuthenticated(true);
   };
