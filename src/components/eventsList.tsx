@@ -52,7 +52,12 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
       <li className="overflow-hidden rounded-lg bg-black bg-opacity-40 px-12 py-12 shadow">
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <div>
-            <h2 className="text-3xl font-bold">{event.name}</h2>
+            <button
+              onClick={() => viewEvent(event.id)}
+              className="text-left text-3xl font-bold hover:text-indigo-300"
+            >
+              {event.name}
+            </button>
             <div className="pt-2 sm:pt-4 sm:w-2/3 flex items-center font-semibold text-lg grid grid-cols-1 sm:grid-cols-2">
               <div className="flex items-center flex-inline">
                 <CalendarIcon className="h-5 w-5 text-gray-400" />

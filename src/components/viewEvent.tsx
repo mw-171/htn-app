@@ -11,6 +11,7 @@ import {
   CalendarIcon,
   UserCircleIcon,
   ArrowRightIcon,
+  ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 
 interface Props {
@@ -111,7 +112,7 @@ const ViewEvent = () => {
         {isAuthenticated ? (
           <div>
             <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
-              <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
+              <div className="overflow-hidden px-12 sm:px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <div className="">
                     <h2 className="font-bold text-5xl  flex inline-block">
@@ -139,18 +140,18 @@ const ViewEvent = () => {
                           >
                             <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                           </svg>
-                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-center">
                             <CalendarIcon
                               className="h-5 w-5 flex-shrink-0"
                               aria-hidden="true"
                             />
-                            <span className="mt-1 sm:mt-0 sm:ml-2">
+                            <span className="flex items-center mt-1 sm:mt-0 sm:ml-2">
                               {formatDate(event.start_time)}
                             </span>
                           </div>
                         </div>
                       </li>
-                      <li>
+                      <li className="flex-grow">
                         <div className="flex items-center">
                           <svg
                             className="h-5 w-5 flex-shrink-0 text-gray-300"
@@ -160,7 +161,7 @@ const ViewEvent = () => {
                           >
                             <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                           </svg>
-                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-start">
+                          <div className="ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-500 flex flex-col sm:flex-row items-center">
                             <ClockIcon
                               className="h-5 w-5 flex-shrink-0"
                               aria-hidden="true"
@@ -264,7 +265,7 @@ const ViewEvent = () => {
                       </NavLink>
                       <NavLink
                         to="/"
-                        className="flex items-center gap-2 rounded-mdpx-3.5 py-2.5 text-sm font-semibold text-white shadow-sm leading-6"
+                        className="flex items-center gap-2 rounded-mdpx-3.5 py-2.5 text-sm font-semibold text-white shadow-sm leading-6 hover:text-indigo-300"
                       >
                         Home
                         <span aria-hidden="true">
@@ -279,10 +280,23 @@ const ViewEvent = () => {
               <div>
                 {/* public */}
                 <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
+                  <div>
+                    <div className="absolute px-8 py-4 flex justify-start">
+                      <NavLink
+                        to="/"
+                        className="flex items-center gap-2 rounded-mdpx-3.5 py-2.5 text-sm font-semibold text-white shadow-sm leading-6 hover:text-indigo-300"
+                      >
+                        <span aria-hidden="true">
+                          <ArrowLeftIcon className="h-5 w-5" />
+                        </span>
+                        Home
+                      </NavLink>
+                    </div>
+                  </div>
                   <div className="overflow-hidden px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
                     <div className="grid grid-cols-1 md:grid-cols-2">
                       <div className="">
-                        <h2 className="font-bold text-5xl  flex inline-block">
+                        <h2 className="font-bold text-5xl pt-4 sm:pt-0 flex inline-block">
                           {event.name}
                         </h2>
                         <ol
