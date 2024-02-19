@@ -1,5 +1,5 @@
 import EventService from "../services/eventService";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TEvent, TSpeaker } from "src/types/types";
 import { useNavigate } from "react-router-dom";
@@ -73,6 +73,19 @@ const ViewEvent = () => {
       <div>
         {isAuthenticated ? (
           <div>
+            <div>
+              <div className="absolute px-8 py-4 flex justify-start">
+                <NavLink
+                  to="/hackerevents"
+                  className="flex items-center gap-2 rounded-mdpx-3.5 py-2.5 text-sm font-semibold text-white shadow-sm leading-6 hover:text-indigo-300"
+                >
+                  <span aria-hidden="true">
+                    <ArrowLeftIcon className="h-5 w-5" />
+                  </span>
+                  Home
+                </NavLink>
+              </div>
+            </div>
             <div className="bg-black min-h-screen flex flex-1 min-h-full text-white">
               <div className="overflow-hidden px-12 sm:px-16 py-16 sm:py-48 lg:px-56 lg:py-48 shadow">
                 <div className="grid grid-cols-1 md:grid-cols-2">
