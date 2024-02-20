@@ -210,7 +210,7 @@ const ViewEvent = () => {
 
 export default ViewEvent;
 
-//resuable function for related events
+//resuable function for related events ************************************
 interface RProps {
   relatedEvents: TEvent[];
   viewEvent: (id: number) => void;
@@ -236,7 +236,7 @@ const RelatedEvents = ({ relatedEvents, viewEvent }: RProps) => {
   );
 };
 
-//resuable function for speakers
+//resuable function for speakers *********************************
 interface SProps {
   event: TEvent;
   speakers: TSpeaker[];
@@ -269,7 +269,7 @@ const Speakers = ({ event, speakers }: SProps) => {
   );
 };
 
-//reusable function for date, time, event details
+//reusable function for date, time, event details **********************
 interface TProps {
   event: TEvent;
 }
