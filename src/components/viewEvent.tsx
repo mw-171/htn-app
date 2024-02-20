@@ -19,6 +19,7 @@ interface Props {
   events: TEvent[];
 }
 
+//for indiivdual event view pages
 const ViewEvent = () => {
   const { id } = useParams();
   const [event, setEvent] = useState<any>({});
@@ -28,7 +29,7 @@ const ViewEvent = () => {
   const isPrivateEventType = event.permission === "private";
   const [loading, setLoading] = useState(true); // Initialize loading state
 
-  console.log(isPrivateEventType);
+  //gets the event detail by individual event
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -60,6 +61,7 @@ const ViewEvent = () => {
     console.log("clicked event id: ", id);
     navigate(`/${id}`);
   };
+  //handles the loading screen if the data has not been fetched yet
   if (loading) {
     return (
       <div className="bg-black min-h-screen flex justify-center items-center font-bold text-white">
@@ -71,6 +73,7 @@ const ViewEvent = () => {
   return (
     <>
       <div>
+        {/* checks if user is authenticated yet */}
         {isAuthenticated ? (
           <div>
             <div>
@@ -207,11 +210,11 @@ const ViewEvent = () => {
 
 export default ViewEvent;
 
+//resuable function for related events
 interface RProps {
   relatedEvents: TEvent[];
   viewEvent: (id: number) => void;
 }
-
 const RelatedEvents = ({ relatedEvents, viewEvent }: RProps) => {
   return (
     <div>
@@ -233,11 +236,11 @@ const RelatedEvents = ({ relatedEvents, viewEvent }: RProps) => {
   );
 };
 
+//resuable function for speakers
 interface SProps {
   event: TEvent;
   speakers: TSpeaker[];
 }
-
 const Speakers = ({ event, speakers }: SProps) => {
   return (
     <div>
@@ -266,10 +269,10 @@ const Speakers = ({ event, speakers }: SProps) => {
   );
 };
 
+//reusable function for date, time, event details
 interface TProps {
   event: TEvent;
 }
-
 const EventDetails = ({ event }: TProps) => {
   function formatTime(timestamp: number) {
     const date = new Date(timestamp);

@@ -15,6 +15,7 @@ interface Props {
   allEvents: TEvent[];
 }
 
+//function for listing of events - reused for public and private events
 const EventsList: React.FC<Props> = ({ event, allEvents }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -22,11 +23,13 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
   const startDate = new Date(event.start_time);
   const formattedDate = format(startDate, "EEE, MMM dd, yyyy");
 
+  //controls the navigation to the view event page taking the id as a reference
   const viewEvent = (id: number) => {
     console.log("clicked event id: ", id);
     navigate(`/${id}`);
   };
 
+  //formatting time and dat functions
   function formatTime(timestamp: number) {
     const date = new Date(timestamp);
     const hours = date.getHours().toString().padStart(2, "0");

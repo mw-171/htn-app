@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+//old method of axios calls - not good
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<any[]>([]);
   const [publicEvents, setPublicEvents] = useState<any[]>([]);

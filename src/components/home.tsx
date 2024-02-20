@@ -17,10 +17,12 @@ const navigation = [
   { name: "About", href: "#" },
 ];
 
+//home function that is the landing page for all users
 export default function Home() {
   const [events, setEvents] = useState<any[]>([]);
   const [publicEvents, setPublicEvents] = useState<any[]>([]);
 
+  //gets alll the events
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -35,12 +37,13 @@ export default function Home() {
         const detailedEvents: TEvent[] = eventDetailsResponses.map(
           (response: any) => response.data
         );
-
+        //sorts by the start time
         detailedEvents.sort((a, b) => a.start_time - b.start_time);
 
         // Store events in state
         setEvents(detailedEvents);
 
+        //filters into only public events
         const publicEvents = detailedEvents.filter(
           (event: any) => event.permission === "public"
         );
@@ -53,6 +56,7 @@ export default function Home() {
     fetchEvents();
   }, []);
 
+  //for mobile menu controls
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -64,7 +68,7 @@ export default function Home() {
         >
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Hack the north</span>
+              <span className="sr-only">Hackathon global</span>
               <img className="h-8 w-auto" src="/htnlogo.png" alt="logo" />
             </a>
           </div>
@@ -111,7 +115,7 @@ export default function Home() {
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Hack the north</span>
+                <span className="sr-only">Hackathon Global</span>
                 <img className="h-8 w-auto" src="/htnlogo.png" alt="" />
               </a>
               <button
@@ -164,7 +168,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                Explore Hack the North Events Today
+                Explore Hackathon Global Events Today
               </h1>
               <p className="mt-6 px-16 text-lg leading-8 text-gray-300">
                 Workshops, talks, activities. Detailed info, schedules,

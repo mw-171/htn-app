@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
+//hacker events page/private page
 export default function HackerEvents() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -25,6 +26,7 @@ export default function HackerEvents() {
     navigate("/");
   };
 
+  //gets all the event information
   useEffect(() => {
     const fetchEvents = async () => {
       try {

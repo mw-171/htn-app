@@ -25,14 +25,6 @@ export default function Login() {
     }
   };
 
-  //logout function
-  const handleLogout = () => {
-    // Reset the login state and redirect to public page
-    setIsLoggedIn(false);
-    setUsername("");
-    setPassword("");
-  };
-
   return (
     <>
       <div className="h-screen flex min-h-full flex-1 flex-col justify-center bg-gray-900 px-12 py-12 lg:px-8">
@@ -40,7 +32,7 @@ export default function Login() {
           <img
             className="mx-auto h-10 w-auto"
             src="/htnlogo.png"
-            alt="Your Company"
+            alt="Hack the Nirth"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign in to your account
