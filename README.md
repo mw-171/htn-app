@@ -3,6 +3,11 @@
 Features public and private events with data pulled from a backend api endpoint\
 Used tailwind, typescript and react
 
+### Login details
+
+user:hacker\
+pass:hacker123!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
