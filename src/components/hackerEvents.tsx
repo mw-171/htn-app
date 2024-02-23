@@ -108,7 +108,7 @@ export default function HackerEvents() {
               </defs>
             </svg>
           </div>
-          <ul className="space-y-6 pb-16 pt-6 sm:pt-0 px-16">
+          <ul className="space-y-6 pb-16 pt-6 sm:pt-0 px-6 sm:px-16">
             {events.map((event: any) => (
               <EventsList key={event.id} event={event} allEvents={events} />
             ))}
