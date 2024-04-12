@@ -1,7 +1,4 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import ListEvents from "./components/listEvents";
 import HackerEvents from "./components/hackerEvents";
 import Login from "./components/login";
 import Home from "./components/home";
@@ -25,3 +22,4 @@ function App() {
 }
 
 export default App;
+

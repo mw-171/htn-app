@@ -6,7 +6,7 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, login, logout } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   //login function
@@ -76,7 +76,7 @@ export default function Login() {
                 </label>
                 <div className="text-sm">
                   <a
-                    href="#"
+                    href="/"
                     className="font-semibold text-indigo-400 hover:text-indigo-300"
                   >
                     Forgot password?

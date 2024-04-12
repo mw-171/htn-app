@@ -312,7 +312,7 @@ const EventDetails = ({ event }: TProps) => {
 
   return (
     <div>
-      <ol role="list" className="flex items-center sm:space-x-4 py-4">
+      <ol className="flex items-center sm:space-x-4 py-4">
         <li>
           <div>
             <div className="text-gray-400 hover:text-gray-500">

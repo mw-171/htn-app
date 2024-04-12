@@ -20,9 +20,6 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
-  const startDate = new Date(event.start_time);
-  const formattedDate = format(startDate, "EEE, MMM dd, yyyy");
-
   //controls the navigation to the view event page taking the id as a reference
   const viewEvent = (id: number) => {
     console.log("clicked event id: ", id);
