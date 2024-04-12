@@ -9,6 +9,7 @@ import {
   XMarkIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
+import SearchBar from "./searchBar";
 
 const navigation = [
   { name: "Features", href: "#" },
@@ -20,6 +21,7 @@ const navigation = [
 export default function Home() {
   const [events, setEvents] = useState<any[]>([]);
   const [publicEvents, setPublicEvents] = useState<any[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<TEvent[]>([]);
 
   //gets alll the events
   useEffect(() => {
@@ -181,7 +183,7 @@ export default function Home() {
                   Log in
                 </NavLink>
                 <a
-                  href="#"
+                  href="/"
                   className="flex items-center gap-2 text-sm font-semibold leading-6 text-white hover:text-indigo-400"
                 >
                   Learn more{" "}
@@ -194,7 +196,7 @@ export default function Home() {
           </div>
         </div>
         <div
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-37rem)]"
           aria-hidden="true"
         >
           <div
@@ -207,7 +209,7 @@ export default function Home() {
         </div>
       </div>
       <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-16">
-        <div className="relative py-4 z-20">
+        <div className="relative py-4">
           <div
             className="absolute inset-0 flex items-center"
             aria-hidden="true"
@@ -220,9 +222,15 @@ export default function Home() {
             </span>
           </div>
         </div>
+        <div className="z-20 pt-8">
+          <SearchBar
+            allEvents={publicEvents}
+            setFilteredEvents={setFilteredEvents}
+          />
+        </div>
 
         <ul className="space-y-6 py-4">
-          {publicEvents.map((event: any) => (
+          {filteredEvents.map((event: any) => (
             <EventsList key={event.id} event={event} allEvents={publicEvents} />
           ))}
         </ul>
