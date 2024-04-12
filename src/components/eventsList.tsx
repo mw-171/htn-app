@@ -106,6 +106,7 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
                   <a
                     className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     href={event.private_url}
+                    target="_blank rel=noopener noreferrer"
                   >
                     Learn More
                   </a>
@@ -113,6 +114,7 @@ const EventsList: React.FC<Props> = ({ event, allEvents }) => {
                   <a
                     className="rounded-full bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     href={event.public_url}
+                    target="_blank rel=noopener noreferrer"
                   >
                     See Recording
                   </a>
