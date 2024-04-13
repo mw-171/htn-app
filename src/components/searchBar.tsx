@@ -9,19 +9,28 @@ const SearchBar = ({
   setFilteredEvents: (events: TEvent[]) => void;
 }) => {
   const [input, setInput] = useState<string>("");
+  const [selectedEventType, setSelectedEventType] = useState<string>("");
+  const eventTypes: string[] = ["Workshop", "Activity", "Tech talk"];
 
   useEffect(() => {
     const filteredEvents = allEvents.filter((event) => {
       const nameMatches: boolean = event.name
         .toLowerCase()
         .includes(input.toLowerCase());
+
+      if (selectedEventType !== "") {
+        const typeMatches: boolean =
+          event.event_type ===
+          selectedEventType.split(" ").join("_").toLowerCase();
+        return typeMatches && nameMatches;
+      }
       return nameMatches;
     });
 
     if (filteredEvents) {
       setFilteredEvents(filteredEvents);
     }
-  }, [input, allEvents, setFilteredEvents]);
+  }, [input, allEvents, setFilteredEvents, selectedEventType]);
   return (
     <input
       type="text"
