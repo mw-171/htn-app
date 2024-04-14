@@ -10,7 +10,7 @@ const SearchBar = ({
 }) => {
   const [input, setInput] = useState<string>("");
   const [selectedEventType, setSelectedEventType] = useState<string>("");
-  const eventTypes: string[] = ["Workshop", "Activity", "Tech talk"];
+  const eventTypes: string[] = ["All", "Workshop", "Activity", "Tech talk"];
 
   useEffect(() => {
     const filteredEvents = allEvents.filter((event) => {
@@ -18,7 +18,7 @@ const SearchBar = ({
         .toLowerCase()
         .includes(input.toLowerCase());
 
-      if (selectedEventType !== "") {
+      if (selectedEventType !== "All") {
         const typeMatches: boolean =
           event.event_type ===
           selectedEventType.split(" ").join("_").toLowerCase();
@@ -32,7 +32,7 @@ const SearchBar = ({
     }
   }, [input, allEvents, setFilteredEvents, selectedEventType]);
   return (
-    <>
+    <div className="flex justify-between gap-4">
       <input
         type="text"
         placeholder="Search events..."
@@ -48,12 +48,16 @@ const SearchBar = ({
         className="block rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
       >
         {eventTypes.map((type) => (
-          <option key={type} value={type} className="bg-gray-800 rounded-md">
+          <option
+            key={type}
+            value={type}
+            className="bg-gray-800 text-white py-1 px-2 rounded-md hover:bg-gray-700"
+          >
             {type}
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
