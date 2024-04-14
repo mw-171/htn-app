@@ -6,13 +6,14 @@ import { useAuth } from "src/contexts/authContext";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-
+import SearchBar from "./searchBar";
 //hacker events page/private page
 export default function HackerEvents() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [events, setEvents] = useState<any[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<TEvent[]>([]);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -108,8 +109,15 @@ export default function HackerEvents() {
               </defs>
             </svg>
           </div>
-          <ul className="space-y-6 pb-16 pt-6 sm:pt-0 px-6 sm:px-16">
-            {events.map((event: any) => (
+          <div className="pt-6 pb-4 sm:pt-0 px-6 sm:px-16">
+            <SearchBar
+              allEvents={events}
+              setFilteredEvents={setFilteredEvents}
+            />
+          </div>
+
+          <ul className="space-y-6 pb-16 pt-4 sm:pt-0 px-6 sm:px-16">
+            {filteredEvents.map((event: any) => (
               <EventsList key={event.id} event={event} allEvents={events} />
             ))}
           </ul>
