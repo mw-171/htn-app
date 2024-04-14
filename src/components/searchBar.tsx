@@ -9,7 +9,7 @@ const SearchBar = ({
   setFilteredEvents: (events: TEvent[]) => void;
 }) => {
   const [input, setInput] = useState<string>("");
-  const [selectedEventType, setSelectedEventType] = useState<string>("");
+  const [selectedEventType, setSelectedEventType] = useState<string>("All");
   const eventTypes: string[] = ["All", "Workshop", "Activity", "Tech talk"];
 
   useEffect(() => {
