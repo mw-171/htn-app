@@ -52,30 +52,14 @@ const SearchBar = ({
         }}
         className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
       />
-      <select
-        value={selectedEventType}
-        onChange={(e) => setSelectedEventType(e.target.value)}
-        className="block rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-      >
-        {eventTypes.map((type) => (
-          <option
-            key={type}
-            value={type}
-            className="bg-gray-800 text-white py-1 px-2 rounded-md hover:bg-gray-700"
-          >
-            {type}
-          </option>
-        ))}
-      </select>
-
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/5 px-3 py-2 text-sm text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:ring-indigo-500">
-            <div className="flex-grow whitespace-nowrap pr-8">
-              {selectedEventType}
+            <div className="whitespace-nowrap text-left">
+              <div className="w-[63px]">{selectedEventType}</div>
             </div>
             <ChevronDownIcon
-              className="-mr-1 h-4 w-4 text-white"
+              className="-mr-1 h-5 w-5 text-gray-500"
               aria-hidden="true"
             />
           </Menu.Button>
@@ -113,6 +97,22 @@ const SearchBar = ({
           </Menu.Items>
         </Transition>
       </Menu>
+
+      <select
+        value={selectedEventType}
+        onChange={(e) => setSelectedEventType(e.target.value)}
+        className="block rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+      >
+        {eventTypes.map((type) => (
+          <option
+            key={type}
+            value={type}
+            className="bg-gray-800 text-white py-1 px-2 rounded-md hover:bg-gray-700"
+          >
+            {type}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

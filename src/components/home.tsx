@@ -208,7 +208,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="text-white mx-auto max-w-7xl pb-8 px-4 sm:px-8 lg:px-16">
+      <div className="text-white mx-auto max-w-7xl pb-32 px-4 sm:px-8 lg:px-16">
         <div className="relative py-4">
           <div
             className="absolute inset-0 flex items-center"
