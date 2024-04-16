@@ -97,22 +97,6 @@ const SearchBar = ({
           </Menu.Items>
         </Transition>
       </Menu>
-
-      <select
-        value={selectedEventType}
-        onChange={(e) => setSelectedEventType(e.target.value)}
-        className="block rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-      >
-        {eventTypes.map((type) => (
-          <option
-            key={type}
-            value={type}
-            className="bg-gray-800 text-white py-1 px-2 rounded-md hover:bg-gray-700"
-          >
-            {type}
-          </option>
-        ))}
-      </select>
     </div>
   );
 };
