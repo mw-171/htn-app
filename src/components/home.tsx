@@ -88,7 +88,7 @@ export default function Home() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-white"
+                className="text-sm font-semibold leading-6 text-white opacity-30"
               >
                 {item.name}
               </a>
@@ -182,10 +182,7 @@ export default function Home() {
                 >
                   Log in
                 </NavLink>
-                <a
-                  href="/"
-                  className="flex items-center gap-2 text-sm font-semibold leading-6 text-white hover:text-indigo-400"
-                >
+                <a className="flex items-center gap-2 text-sm font-semibold leading-6 text-white  opacity-30">
                   Learn more{" "}
                   <span aria-hidden="true">
                     <ArrowRightIcon className="h-5 w-5" />
