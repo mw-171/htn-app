@@ -58,7 +58,7 @@ export default function HackerEvents() {
   return (
     <>
       {isAuthenticated ? (
-        <div className="bg-gray-900">
+        <div className="bg-gray-900 min-h-screen">
           <div className="relative isolate overflow-hidden bg-gray-900 pt-8">
             <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
@@ -124,7 +124,7 @@ export default function HackerEvents() {
         </div>
       ) : (
         <div>
-          <div className="bg-black min-h-screen flex flex-1 min-h-full text-white justify-center items-center">
+          <div className="bg-black w-full min-h-screen flex flex-1 min-h-full text-white justify-center items-center">
             <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
