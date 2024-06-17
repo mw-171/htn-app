@@ -10,6 +10,8 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import SearchBar from "./searchBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const navigation = [
   { name: "Features", href: "#" },
@@ -231,6 +233,19 @@ export default function Home() {
             <EventsList key={event.id} event={event} allEvents={publicEvents} />
           ))}
         </ul>
+
+        <div className="pt-16 text-center">
+          <a
+            href="https://github.com/mw-171/htn-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FontAwesomeIcon
+              icon={faGithub}
+              className="w-6 h-6 hover:text-gray-500"
+            />
+          </a>
+        </div>
       </div>
     </div>
   );
