@@ -1,7 +1,7 @@
-# Frontend dev app for htn events!
+# Frontend dev app for hackathon events!
 
-Features public and private events with data pulled from a backend api endpoint\
-Used tailwind, typescript and react
+Features public events and private events hidden behind a login screen with data pulled from a backend api endpoint\
+Uses tailwind, typescript and react
 
 ### Login details
 
